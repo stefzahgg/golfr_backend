@@ -30,7 +30,6 @@ module Api
     def show
       current_user = User.find_by(id: params[:id])
 
-      # if the user is not found, return a 404
       if current_user == nil
         render json: {
           errors: [
@@ -40,8 +39,6 @@ module Api
         return
       end
 
-
-
       render json: {
         user: {
           id: current_user.id,
@@ -50,9 +47,6 @@ module Api
           scores: current_user.scores.map(&:serialize)
         }
       }.to_json
-
-
     end
-
   end
 end
