@@ -30,7 +30,7 @@ module Api
     def show
       current_user = User.find_by(id: params[:id])
 
-      if current_user == nil
+      if current_user.nil?
         render json: {
           errors: [
             'User not found'
