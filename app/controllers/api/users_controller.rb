@@ -26,5 +26,27 @@ module Api
         }
       }.to_json
     end
+
+    def show
+      current_user = User.find_by(id: params[:id])
+
+      if current_user.nil?
+        render json: {
+          errors: [
+            'User not found'
+          ]
+        }, status: :not_found
+        return
+      end
+
+      render json: {
+        user: {
+          id: current_user.id,
+          email: current_user.email,
+          name: current_user.name,
+          scores: current_user.scores.map(&:serialize)
+        }
+      }.to_json
+    end
   end
 end
